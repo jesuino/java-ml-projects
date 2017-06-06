@@ -1,2 +1,2 @@
-# tensorflow-java-projects
-My TensorFlow projects using the Java API
+# Deep Learning Java projects
+My Deep Learning projects using Java.
