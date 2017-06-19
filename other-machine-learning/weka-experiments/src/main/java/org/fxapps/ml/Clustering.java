@@ -1,7 +1,8 @@
 package org.fxapps.ml;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -43,7 +44,7 @@ public class Clustering extends Application {
 
 	private static final int NUMBER_OF_CLASSES = 3;
 
-	private static final String DATA_SET = "/opt/weka/weka-3-7-12/data/iris.2D.arff";
+	private static final String DATA_SET = "/iris.2D.arff";
 
 	private ScatterChart<Number, Number> clusteredChart;
 	private ScatterChart<Number, Number> realDataChart;
@@ -114,7 +115,8 @@ public class Clustering extends Application {
 	private void loadData() {
 		BufferedReader datafile;
 		try {
-			datafile = new BufferedReader(new FileReader(DATA_SET));
+			InputStream dataSetIs = getClass().getResource(DATA_SET).openStream();
+			datafile = new BufferedReader(new InputStreamReader(dataSetIs));
 			data = new Instances(datafile);
 			data.setClassIndex(data.numAttributes() - 1);
 		} catch (Exception e) {
@@ -157,6 +159,7 @@ public class Clustering extends Application {
 		// we have to copy the original data to swap the series
 		clusteredChart.getData().forEach(serie -> {
 			Series<Number, Number> series = new Series<>();
+			series.setName(serie.getName());
 			serie.getData().stream().map(d -> new Data<Number, Number>(d.getXValue(), d.getYValue()))
 					.forEach(series.getData()::add);
 			clusteredSeries.add(series);
