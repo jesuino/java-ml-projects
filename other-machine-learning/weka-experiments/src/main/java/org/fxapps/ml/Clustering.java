@@ -1,5 +1,6 @@
 package org.fxapps.ml;
 
+import java.awt.Dimension;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -10,7 +11,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import javax.swing.SwingUtilities;
+
 import javafx.application.Application;
+import javafx.embed.swing.SwingNode;
 import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.chart.Axis;
@@ -23,6 +27,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -39,6 +45,8 @@ import weka.core.Instance;
 import weka.core.Instances;
 import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.Remove;
+import weka.gui.treevisualizer.PlaceNode2;
+import weka.gui.treevisualizer.TreeVisualizer;
 
 public class Clustering extends Application {
 
@@ -83,10 +91,21 @@ public class Clustering extends Application {
 
 		Label lblDecisionTreeTitle = new Label("Decision Tree generated for the Iris dataset:");
 		Text txtTree = new Text(tree.toString());
+		String graph = tree.graph();
+		SwingNode sw = new SwingNode();
+		SwingUtilities.invokeLater(() -> {
+			TreeVisualizer treeVisualizer = new TreeVisualizer(null, graph, new PlaceNode2());
+			treeVisualizer.setPreferredSize(new Dimension(600, 500));
+			sw.setContent(treeVisualizer);
+		});
+
 		Button btnRestore = new Button("Restore original data");
 		Button btnSwapColors = new Button("Swap clustered chart colors");
-		VBox vbDecisionTree = new VBox(10, lblDecisionTreeTitle, new Separator(), txtTree, btnRestore, btnSwapColors);
-
+		StackPane spTree = new StackPane(sw);
+		spTree.setPrefWidth(300);
+		spTree.setPrefHeight(350);
+		VBox vbDecisionTree = new VBox(5, lblDecisionTreeTitle, new Separator(), spTree,
+				new HBox(10, btnRestore, btnSwapColors));
 		btnRestore.setOnAction(e -> {
 			loadData();
 			reloadSeries();
@@ -128,12 +147,12 @@ public class Clustering extends Application {
 
 	private void reloadSeries(Number xValue, Number yValue) {
 		try {
-		Instance instance = new DenseInstance(NUMBER_OF_CLASSES);
-		instance.setDataset(data);
-		instance.setValue(0, xValue.doubleValue());
-		instance.setValue(1, yValue.doubleValue());
-		double predictedClass = tree.classifyInstance(instance);
-		instance.setValue(2, predictedClass);
+			Instance instance = new DenseInstance(NUMBER_OF_CLASSES);
+			instance.setDataset(data);
+			instance.setValue(0, xValue.doubleValue());
+			instance.setValue(1, yValue.doubleValue());
+			double predictedClass = tree.classifyInstance(instance);
+			instance.setValue(2, predictedClass);
 			data.add(instance);
 			reloadSeries();
 		} catch (Exception e) {
@@ -153,7 +172,7 @@ public class Clustering extends Application {
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void swapClusteredChartSeriesColors() {
 		List<Series<Number, Number>> clusteredSeries = new ArrayList<>();
 		// we have to copy the original data to swap the series
