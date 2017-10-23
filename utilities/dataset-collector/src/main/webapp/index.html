@@ -1,0 +1,85 @@
+<html>
+<head>
+<style type="text/css">
+form {
+	font: 100% verdana, arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	min-width: 500px;
+	max-width: 600px;
+	width: 560px;
+}
+
+form fieldset {
+	border-color: #000;
+	border-width: 1px;
+	border-style: solid;
+	padding: 10px;
+	margin: 0;
+}
+
+form br {
+	clear: left;
+}
+
+form fieldset legend {
+	font-size: 1.1em;
+}
+
+form fieldset label:first-letter {
+	text-decoration: underline;
+}
+</style>
+<script type="text/javascript">
+function load() {
+    var select = document.getElementById("labels");
+    var request = new XMLHttpRequest();
+    request.open( "GET", "rest/dataset/labels", true); 
+    request.send( null );
+    request.onload = function() {
+		var labels = JSON.parse(this.response);
+		for(var i in labels) {
+			var opt = document.createElement('option');    
+			opt.innerHTML = labels[i];
+			select.appendChild(opt);
+		}
+    };
+   
+}
+
+function submitForm() {
+    var form = document.getElementById("formData");	
+    var label = document.getElementById("labels").value;
+    form.action = "rest/dataset/" + label;
+    form.submit();
+    alert("Image submited to the dataset!");
+    form.reset();
+}
+
+</script>
+
+</head>
+
+<body onload="load()">
+
+	<h2>Submit your image to train the neural network</h2>
+
+	<!--  TODO: submit the form using Javascript and post to the label -->
+	<form action="rest/dataset" method="post" enctype="multipart/form-data"
+		id="formData" >
+		<fieldset>
+			<legend>Data information</legend>
+			<label for="image">Image: </label> <input type="file"
+				accept="image/*" capture="camera" name="image"><br />
+			<br /> <label for="label">Label: </label> <select id="labels"
+				name="label">
+			</select><br />
+			<br />
+			<input type="button" value="Submit" onclick="submitForm()"> <input type="reset"
+				value="Reset">
+		</fieldset>
+	</form>
+
+
+</body>
+</html>
