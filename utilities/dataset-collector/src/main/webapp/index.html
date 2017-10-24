@@ -48,12 +48,11 @@ function load() {
 }
 
 function submitForm() {
-    var form = document.getElementById("formData");	
+    var form = document.getElementById("formData");
     var label = document.getElementById("labels").value;
     form.action = "rest/dataset/" + label;
     form.submit();
-    alert("Image submited to the dataset!");
-    form.reset();
+    console.log("Image submited to the dataset!");
 }
 
 </script>
@@ -70,7 +69,7 @@ function submitForm() {
 		<fieldset>
 			<legend>Data information</legend>
 			<label for="image">Image: </label> <input type="file"
-				accept="image/*" capture="camera" name="image"><br />
+				accept="image/*" capture="camera" name="image" id="img" onchange="submitForm()"><br />
 			<br /> <label for="label">Label: </label> <select id="labels"
 				name="label">
 			</select><br />
