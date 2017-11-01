@@ -1,4 +1,4 @@
-Brazilian Coin Classification
+Brazillian Coin Classification
 --
 Code used to train a neural network that will learn how to classify coins.
 
