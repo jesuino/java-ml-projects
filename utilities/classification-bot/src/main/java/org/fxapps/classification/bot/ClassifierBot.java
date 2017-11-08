@@ -1,6 +1,7 @@
 package org.fxapps.classification.bot;
 
 import java.net.URL;
+import java.util.List;
 import java.util.logging.Logger;
 import org.telegram.telegrambots.api.methods.GetFile;
 import org.telegram.telegrambots.api.methods.send.SendPhoto;
@@ -19,7 +20,9 @@ public class ClassifierBot extends TelegramLongPollingBot {
 		if (update.hasMessage() && update.getMessage().hasPhoto()) {
 			Message message = update.getMessage();
 			long chatId = message.getChatId();
-			PhotoSize photo = message.getPhoto().get(0);
+			// get the last photo - it seems to be the bigger one
+			List<PhotoSize> photos = message.getPhoto();
+			PhotoSize photo = photos.get(photos.size() - 1);
 			String id = photo.getFileId();
 			try {
 				GetFile getFile = new GetFile();

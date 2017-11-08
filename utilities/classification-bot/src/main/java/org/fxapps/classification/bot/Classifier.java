@@ -38,8 +38,8 @@ public class Classifier {
 				values.put(labels[i], result * 100);
 			}
 		}
-		Map<String, Double> sortedMap = MapUtil.sortByValue(values);
-		sortedMap.forEach((label, value) -> sb.append(label + ": " + String.format("%.2f", value) + "%\n"));
+//		Map<String, Double> sortedMap = MapUtil.sortByValue(values);
+		values.forEach((label, value) -> sb.append(label + ": " + String.format("%.2f", value) + "%\n"));
 		return sb.toString();
 	}
 
