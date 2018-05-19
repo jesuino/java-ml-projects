@@ -1,18 +1,19 @@
 package org.fxapps.ml.deeplearning.yolo;
 
+import static org.bytedeco.javacpp.opencv_imgproc.COLOR_BGR2RGB;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
-import static org.bytedeco.javacpp.opencv_imgproc.COLOR_BGR2RGB;
 import org.datavec.image.loader.NativeImageLoader;
 import org.datavec.image.transform.ColorConversionTransform;
 import org.deeplearning4j.nn.graph.ComputationGraph;
 import org.deeplearning4j.nn.layers.objdetect.DetectedObject;
 import org.deeplearning4j.nn.layers.objdetect.Yolo2OutputLayer;
 import org.deeplearning4j.util.ModelSerializer;
-import org.deeplearning4j.zoo.model.TinyYOLO;
+import org.deeplearning4j.zoo.model.YOLO2;
 import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dataset.api.preprocessor.ImagePreProcessingScaler;
 
@@ -22,9 +23,15 @@ public class YOLOModel {
 	private String inputInfo = System.getProperty("model.input.info");
 	private String grid = System.getProperty("model.grid");
 
-	private final String[] COCO_CLASSES = { "aeroplane", "bicycle", "bird", "boat", "bottle", "bus", "car", "cat",
-			"chair", "cow", "diningtable", "dog", "horse", "motorbike", "person", "pottedplant", "sheep", "sofa",
-			"train", "tvmonitor" };
+	private final String[] COCO_CLASSES = { "person", "bicycle", "car", "motorbike", "aeroplane", "bus", "train",
+			"truck", "boat", "traffic light", "fire hydrant", "stop sign", "parking meter", "bench", "bird", "cat",
+			"dog", "horse", "sheep", "cow", "elephant", "bear", "zebra", "giraffe", "backpack", "umbrella", "handbag",
+			"tie", "suitcase", "frisbee", "skis", "snowboard", "sports ball", "kite", "baseball bat", "baseball glove",
+			"skateboard", "surfboard", "tennis racket", "bottle", "wine glass", "cup", "fork", "knife", "spoon", "bowl",
+			"banana", "apple", "sandwich", "orange", "broccoli", "carrot", "hot dog", "pizza", "donut", "cake", "chair",
+			"sofa", "pottedplant", "bed", "diningtable", "toilet", "tvmonitor", "laptop", "mouse", "remote", "keyboard",
+			"cell phone", "microwave", "oven", "toaster", "sink", "refrigerator", "book", "clock", "vase", "scissors",
+			"teddy bear", "hair drier", "toothbrush" };
 
 	private final int INPUT_WIDTH = 416;
 	private final int INPUT_HEIGHT = 416;
@@ -47,7 +54,8 @@ public class YOLOModel {
 	public void init() {
 		try {
 			if (Objects.isNull(modelPath)) {
-				yoloModel = (ComputationGraph) new TinyYOLO().initPretrained();
+
+				yoloModel = (ComputationGraph) YOLO2.builder().build().initPretrained();
 				setModelClasses(COCO_CLASSES);
 			} else {
 				yoloModel = ModelSerializer.restoreComputationGraph(modelPath);
