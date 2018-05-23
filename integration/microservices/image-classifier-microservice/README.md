@@ -8,7 +8,7 @@ For more information see [my blog](https://fxapps.blogspot.com/2018/05/a-java-mi
 
 First to build this project you will need to make sure you have the following repository in `settings.xml`
 ~~~
-</profile>
+<profile>
       <id>oos-sonatype</id>
       <repositories>
         <repository>
