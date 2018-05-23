@@ -61,6 +61,7 @@
 	</dependencies>
 
 	<build>
+	     <finalName>${project.artifactId}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>io.thorntail</groupId>
@@ -76,6 +77,28 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<groupId>io.fabric8</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<configuration>
+					<images>
+						<image>
+							<name>fxapps-image-classifier/base</name>
+							<build>
+								<from>jboss/base-jdk:8</from>
+								<assembly>
+									<name>${project.artifactId}</name>
+									<descriptor>base.xml</descriptor>
+								</assembly>
+								<cmd>/${project.artifactId}/bin/run.sh</cmd>
+							</build>
+							<run>
+								<skip>true</skip>
+							</run>
+						</image>
+					</images>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
