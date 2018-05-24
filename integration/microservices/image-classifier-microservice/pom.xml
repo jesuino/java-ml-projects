@@ -68,6 +68,7 @@
 				<artifactId>thorntail-maven-plugin</artifactId>
 				<version>${version.thorntail}</version>
 				<configuration>
+                                        <format>dir</format>
 					<mode>thin</mode>
 				</configuration>
 				<executions>
