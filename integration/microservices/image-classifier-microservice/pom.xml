@@ -97,6 +97,25 @@
 								<skip>true</skip>
 							</run>
 						</image>
+					   <image>
+					      <name>fxapps-image-classifier/app</name>
+					      <build>
+						<from>fxapps-image-classifier/base</from>
+						<assembly>
+						  <name>thorntail/app</name>
+						  <descriptorRef>artifact</descriptorRef>
+						</assembly>
+					      </build>
+					      <run>
+						<log>
+						  <enabled>true</enabled>
+						  <file>target/container.log</file>
+						</log>
+						<wait>
+						  <log>THORN-000999</log>
+						</wait>
+					      </run>
+					    </image>
 					</images>
 				</configuration>
 			</plugin>
