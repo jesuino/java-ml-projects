@@ -2,7 +2,7 @@
 <assembly>
   <fileSets>
     <fileSet>
-      <directory>target/${project.artifactId}-${project.version}-bin</directory>
+      <directory>target/${project.artifactId}-bin</directory>
       <outputDirectory>.</outputDirectory>
       <includes>
         <include>**/*</include>
