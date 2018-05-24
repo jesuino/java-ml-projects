@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<assembly>
+  <fileSets>
+    <fileSet>
+      <directory>target/${project.artifactId}-${project.version}-bin</directory>
+      <outputDirectory>.</outputDirectory>
+      <includes>
+        <include>**/*</include>
+      </includes>
+    </fileSet>
+  </fileSets>
+</assembly>
