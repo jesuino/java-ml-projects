@@ -42,3 +42,8 @@ First to build this project you will need to make sure you have the following re
 ~~~
 
 Then: `mvn clean install` - it take a while for the first time becuase it download a lot of stuff, including the model bin. After that all the run will be faster :).
+If you want to build a docker image make sure you have Docker installed and then run:
+
+~~~
+mvn docker:build
+~~~
