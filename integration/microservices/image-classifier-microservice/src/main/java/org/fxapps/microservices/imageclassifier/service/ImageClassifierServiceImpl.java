@@ -42,21 +42,21 @@ public class ImageClassifierServiceImpl implements ImageClassifierService {
 	 */
 	@Inject
 	@ConfigProperty(name=ServiceProperties.MODEL_PATH, defaultValue= "")
-	private String modelPath;
+	String modelPath;
 
 	/**
 	 * Labels for the model. It should be comma separated
 	 */
 	@Inject
 	@ConfigProperty(name=ServiceProperties.MODEL_LABELS, defaultValue="")
-	private String labelsStr;
+	String labelsStr;
 	
 	/**
 	 * The model type
 	 */
 	@Inject
 	@ConfigProperty(name=ServiceProperties.MODEL_TYPE, defaultValue="CUSTOM")
-	private String modelType;
+	String modelType;
 
 
 	/**
@@ -64,14 +64,14 @@ public class ImageClassifierServiceImpl implements ImageClassifierService {
 	 */
 	@Inject
 	@ConfigProperty(name=ServiceProperties.MODEL_INPUT_WIDTH, defaultValue= "224")
-	private int inputWidth;
+	int inputWidth;
 
 	/**
 	 * The input image height
 	 */
 	@Inject
 	@ConfigProperty(name=ServiceProperties.MODEL_INPUT_HEIGHT, defaultValue= "224")
-	private int inputHeight;
+	int inputHeight;
 
 	/**
 	 * The number of channels
