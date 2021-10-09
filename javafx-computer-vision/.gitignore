@@ -2,8 +2,3 @@
 .classpath
 .project
 .settings
-/target
-/local
-target/
-build/
-
