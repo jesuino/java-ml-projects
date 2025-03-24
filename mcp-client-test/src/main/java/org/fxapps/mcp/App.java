@@ -1,4 +1,4 @@
-package org.fxapps.ollamamcp;
+package org.fxapps.mcp;
 
 import java.util.Map;
 
