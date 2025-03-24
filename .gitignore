@@ -6,4 +6,5 @@
 /local
 target/
 build/
+/.vscode/
 
