@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "byteman": {
+      "command": "jbang",
+      "args": [
+        "--quiet",
+        "org.fxapps:byteman-mcp:0.1:runner"
+      ]
+    }
+  }
+}

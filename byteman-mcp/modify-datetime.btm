@@ -1,0 +1,7 @@
+RULE Modify getDateTime to return JUG VALE
+CLASS random
+METHOD getDateTime
+AT EXIT
+IF true
+DO return "JUG VALE"
+ENDRULE
