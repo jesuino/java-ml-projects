@@ -6,7 +6,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import org.jboss.byteman.agent.submit.ScriptText;
 import org.jboss.byteman.agent.submit.Submit;
 
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,9 +45,8 @@ public class BytemanMCPTool {
         /**
          * Removes all Byteman rules from a running Java process.
          *
-         * @param pid The process ID of the target Java process
          * @return Result message indicating success or failure
-         * @throws Exception 
+         * @throws Exception
          */
         @Tool(description = "Remove all Byteman rules from a running Java process. " +
                         "This clears all previously injected script rules.")

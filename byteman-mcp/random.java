@@ -1,15 +1,15 @@
 import java.time.LocalDateTime;
 
-void main() throws Exception {    
+void main() {    
     println(this.getClass().getName());
     while (true) {
         try {
             printInfo();
+            Thread.sleep(1000);
         } catch (Exception e) {
             System.out.println("Had exception" + e.getMessage());
             e.printStackTrace();
         }
-        Thread.sleep(1000);
     }
 }
 
